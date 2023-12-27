@@ -1,0 +1,21 @@
+﻿@using System.Collections.Generic;
+@using Portal.Models;
+@using DAL;
+@using BOL;
+@{
+    ViewData["Title"] = "Product Page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+        List<Product> Flist=new List<Product>();
+        Flist= (List<Product>)ViewData["allProducts"];
+        foreach(Product p in Flist)
+        {
+            <p>@p.Id @p.name </p>
+        }
+        //<p>@Flist.Count</p>
+    }    
+</div>
