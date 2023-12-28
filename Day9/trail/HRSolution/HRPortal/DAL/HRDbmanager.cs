@@ -20,7 +20,7 @@ public static class HRDbmanager
 
         return clist;
     }
-    public static string conString = @"server=192.168.10.150;port=3306;user=dac52;password=welcome;database=dac52";
+    public static string conString = @"server=localhost;port=3306;user=root;password=1122;database=simple";
     public static List<Company> GetAllCompanyByDB()
     {
         List<Company> clist = new List<Company>();
@@ -56,39 +56,69 @@ public static class HRDbmanager
         }
         return clist;
     }
-    public static void AddUserByDB(string cName, string cContact, string location, string cusername, string cpassword)
+    public static bool AddUserByDB(string companyName, string contact, string location, string username, string password)
     {
         MySqlConnection conn = new MySqlConnection();
         conn.ConnectionString = conString;
-        int id =2;
-        string querry = "insert into Ncompany values(@id,@cName,@cContact,@location,@cusername,@cpassword)";
+        string querry = "insert into Ncompany values(2,@CompanyName, @Contact, @Location, @Username, @Password)";
         //string querry = "insert into Ncompany values(2,'fvjahf','afvua','gfyua','gfgf','fjdfj')";
-        MySqlCommand cmd = new MySqlCommand(querry, conn);
-        cmd.Parameters.AddWithValue("@id", id);
-        cmd.Parameters.AddWithValue("@cName", cName);
-        cmd.Parameters.AddWithValue("@cContact", cContact);
-        cmd.Parameters.AddWithValue("@location", location);
-        cmd.Parameters.AddWithValue("@cusername", cusername);
-        cmd.Parameters.AddWithValue("@cpassowrd", cpassword);
-        //cmd.Connection = conn;
-        conn.Open();
-        //cmd.CommandText = querry;
-        Console.WriteLine(cName);
-        cmd.ExecuteNonQuery();
-        Console.WriteLine(".................");
-        conn.Close();
-        // try
-        // {
 
-        // }
-        // catch (Exception ee)
-        // {
-        //     Console.WriteLine("/////////////////");
-        //     Console.WriteLine(ee.Message);
-        // }
-        // finally
-        // {
-        //     conn.Close();
-        // }
+        try
+        {
+        MySqlCommand cmd = new MySqlCommand(querry, conn);
+        //cmd.Parameters.AddWithValue("@id", id);
+        cmd.Parameters.AddWithValue("@CompanyName", companyName);
+        cmd.Parameters.AddWithValue("@Contact", contact);
+        cmd.Parameters.AddWithValue("@Location", location);
+        cmd.Parameters.AddWithValue("@Username", username);
+        cmd.Parameters.AddWithValue("@Password", password); 
+        cmd.Connection = conn;
+        conn.Open();
+        cmd.CommandText = querry;
+       // Console.WriteLine(cName);
+        cmd.ExecuteNonQuery();
+        return true;
+        }
+        catch (Exception ee)
+        {
+            Console.WriteLine("/////////////////");
+            Console.WriteLine(ee.Message);
+            return false;
+        }
+        finally
+        {
+            conn.Close();
+        }
+        return false;
+    }
+    public static bool ValidateUser(string username, string password)
+    {
+        MySqlConnection conn = new MySqlConnection();
+        conn.ConnectionString = conString;
+        Company c = new Company();
+        string querry = "SELECT COUNT(*) FROM Ncompany WHERE username = @Username AND password = @Password";
+        try
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = conn;
+            conn.Open();
+            cmd.CommandText = querry;
+            cmd.Parameters.AddWithValue("@Username", username);
+            cmd.Parameters.AddWithValue("@Password", password);
+
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+            return count > 0;
+
+        }
+        catch (Exception ee)
+        {
+            Console.WriteLine(ee.Message);
+        }
+        finally
+        {
+            conn.Close();
+        }
+        return false;
     }
 }

@@ -36,7 +36,7 @@ public class HomeController : Controller
 
 // //        return View();
 //     }
-    public async IActionResult Register(string cName, string cContact, string cLocation, string cUsername,string cPassword)
+    public IActionResult Register(string cName, string cContact, string cLocation, string cUsername,string cPassword)
     {
         HRDbmanager.AddUserByDB(cName,cContact,cLocation,cUsername,cPassword);
 
@@ -58,12 +58,21 @@ public class HomeController : Controller
     //     } 
     //     return View();
     // }
+    // public IActionResult Login(string userName,string password)
+    // {
+    //     if(userName == "harsh" && password == "shubham")
+    //     {
+    //         return this.RedirectToAction("Welcome"); 
+    //     } 
+    //     return View();
+    // }
     public IActionResult Login(string userName,string password)
     {
-        if(userName == "harsh" && password == "shubham")
+        bool status = HRDbmanager.ValidateUser(userName,password);
+        if(status)
         {
-            return this.RedirectToAction("Welcome"); 
-        } 
+            return this.RedirectToAction("Welcome");
+        }
         return View();
     }
     public IActionResult Welcome()
