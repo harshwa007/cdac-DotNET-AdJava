@@ -1,0 +1,21 @@
+@using BOL.Employee;
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <fieldset>
+        <legend>Add Employee</legend>
+        <form method="get">
+            Enter Id: <input type="text" name="f1" /> <br />
+            <input type="submit" value="Find Employee" /><br />
+        </form>
+    </fieldset>
+    @{
+        List<Employee> list = (List<Employee>) ViewData["b"];
+        <ol>
+            @foreach(Employee e in list){
+                <li>@e.Id @e.Name @e.City @e.Address</li>
+            }
+        </ol>
+    }
+</div>

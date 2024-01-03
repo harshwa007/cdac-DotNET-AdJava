@@ -22,7 +22,7 @@ public static class DBManager
             conn.Open();
             cmd.CommandText = query;
             cmd.ExecuteNonQuery();
-            Console.WriteLine("Error");
+           `	
             return true;
         }
         catch (Exception e)
