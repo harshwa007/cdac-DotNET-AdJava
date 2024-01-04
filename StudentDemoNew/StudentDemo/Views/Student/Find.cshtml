@@ -1,0 +1,26 @@
+﻿@using BOL;
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/StudentDemo.styles.css" asp-append-version="true" />
+</script>
+
+<frameset>
+    <legend>Add Student</legend>
+  <form method="get">
+    Enter Id: <input type="text" name="i1"> <br> <br>
+    <input type="submit" value="Find Student"> <br><br>
+  </form>
+</frameset>
+  @{List<Student> list = (List<Student>) ViewData["b"];
+    <ol>
+    @foreach(Student s in list)
+    {
+      <li> @s.Id @s.Fname @s.Lname @s.Std</li>
+    }
+    </ol>
+  }
+
