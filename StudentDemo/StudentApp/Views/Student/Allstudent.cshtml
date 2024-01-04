@@ -1,0 +1,23 @@
+@using BOL;
+
+@{
+    ViewData["Title"] = "AllStudents";
+}
+
+
+<div>
+      <ol>
+              @{
+                 List<Student> list = ViewData["S3"] as List<Student>;
+                   @foreach(Student s in list)
+                   {
+                    <li>
+                       ID : @s.ID  First Name : @s.Fname Last Name : @s.Lname Standard : @s.Standard;
+                    </li>
+                   }
+
+              }
+         
+      </ol>   
+
+</div>
