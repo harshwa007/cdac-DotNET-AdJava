@@ -1,0 +1,57 @@
+SDM
+1) create repository
+2) add .gitignore for node and readme file
+3)Make folder and clone this repo
+4) mkdir public
+5) cd public
+6) cd ..
+7) npm init
+8) enter till yes
+9) open code .
+10)make file server.js
+var express=require('express');
+var app=express();
+app.use(express.static('public'))
+app.get("/",(req, res)=>{res.send("Welcome to IET");});
+app.get("/product",(req, res)=>{var p={ "id":45,
+"title":"Gerbera","description":"Wedding Flower", "unitprice":14, "quatity":7000 };
+res.send(p);
+});
+app.listen(8000);
+console.log("App is listening on port 8000");
+11)cmd->npm install express
+12)create a text file in same folder(Add docker file)
+13)"Dockerfile" ext->allfiles
+FROM node:20
+WORKDIR /app
+COPY package.json /app
+RUN npm install
+COPY . /app
+MD node server.js
+EXPOSE 8000
+14)check node version
+node -v
+15)git add.
+16)git status
+17)git commit -m "msg"
+18)git push
+DOCKER FILE
+1)create instance
+2)launch instance
+3)security group - edit inbound rule - source type IPV4 save rule
+4)connect
+5)command interface -> sudo apt update
+6)mkdir SDM
+7)cd SDM
+8)git clone
+9)ls
+10)cd SDM_P
+11)sudo apt install docker.io
+12)sudo systemctl --type=service --state=running
+13)ctrl+c
+14)sudo docker build -t ietproject .
+15)sudo docker images
+15)sudo docker run -d -p 8000:8000 ietproject
+16)sudo docker ps
+17)copy public ip and open in new tab :8000
+18)exit for logout
