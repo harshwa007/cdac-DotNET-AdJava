@@ -54,4 +54,5 @@ DOCKER FILE
 15)sudo docker run -d -p 8000:8000 ietproject
 16)sudo docker ps
 17)copy public ip and open in new tab :8000
+sudo service docker stop  ( . not required)
 18)exit for logout
